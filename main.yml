@@ -34,31 +34,8 @@
     include_role:
       name: tomcat
     when: inventory_hostname in groups['apps']
-  
-  - name: Test Debug
-    debug:
-      msg: "{{ inventory_hostname_short }}"
-    when: inventory_hostname in groups['apps']
-
-  - name: Deploy Apps
-    include_role:
-      name: app_deploy
-    when: inventory_hostname in groups['apps']
-
-
-#  - name: copy static index.html to tomcat webapps/ansible/index.html
-#    template:
-#      src: index.html.app1
-#      dest: /usr/share/tomcat/webapps/ansible/index.html
-#    when: inventory_hostname_short == 'app1'
-#
-#  - name: copy static index.html to tomcat webapps/ansible/index.html
-#    template:
-#      src: index.html.app2
-#      dest: /usr/share/tomcat/webapps/ansible/index.html
-#    when: inventory_hostname_short == 'app2'
-  
-  - name: Deploy Tomcat
+   
+  - name: Deploy postgresql
     include_role:
       name: postgresql
     when: inventory_hostname in groups['appdbs']
