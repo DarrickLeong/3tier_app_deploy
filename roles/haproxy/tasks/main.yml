@@ -2,7 +2,7 @@
 # tasks file for roles/haproxy
 - name: http
   package:
-    name: httpd
+    name: httpie
     state: latest
 - name: install HAProxy
   yum:
