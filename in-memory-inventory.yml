@@ -1,8 +1,9 @@
 ---
 - name: In-Memory inventory playbook
   hosts: workstation
+  
   tasks:
   - name: Debug
-    Debug:
+    debug:
       msg: "Testing Testing"
 
