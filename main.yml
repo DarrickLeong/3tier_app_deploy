@@ -5,6 +5,9 @@
   become: true
 
   tasks:
+  - name: Import In-memory inventory play
+    import_playbook: in-memory-inventory.yml
+
   - name: enable repos
     template:
       src: ./open_three-tier-app.repo
