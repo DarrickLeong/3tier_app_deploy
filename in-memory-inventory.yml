@@ -2,6 +2,10 @@
 - name: In-Memory inventory playbook
   hosts: workstation
   tasks:
+  - name: Debug Test
+    debug:
+      msg: "Testing Testing"
+
   - name: Fetch Instance Info
     os_server_info:
       cloud: openstack
