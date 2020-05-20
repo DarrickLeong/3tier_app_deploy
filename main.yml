@@ -1,12 +1,15 @@
 ---
+- name: Import In-memory inventory play
+  import_playbook: in-memory-inventory.yml
+
 - name: 3tier_app_deploy
   hosts: all
   gather_facts: true # remove later! speeds up testing
   become: true
 
   tasks:
-  - name: Import In-memory inventory play
-    import_playbook: in-memory-inventory.yml
+#  - name: Import In-memory inventory play
+#    import_playbook: in-memory-inventory.yml
 
   - name: enable repos
     template:
