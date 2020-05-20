@@ -8,9 +8,9 @@
       msg: "Testing Testing"
  
   - name: Fetch Instance Info
-      os_server_facts:
-        cloud: openstack
-      register: result
+    os_server_facts:
+      cloud: openstack
+    register: result
 
   - name: Add host
     add_host:
