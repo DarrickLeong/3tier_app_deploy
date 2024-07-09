@@ -21,4 +21,4 @@
     direction: in
     protocol: "{{ protocol_name }}"
     state: present
-    enabled: yes
+    enabled: true

@@ -1,32 +1,32 @@
 ---
 # tasks file for roles/postgresql
 - name: install postgres
-  yum:
+  ansible.builtin.yum:
     name: postgresql-server
     state: latest
 
 - name: enable apache at boot
-  service:
+  ansible.builtin.service:
     name: postgresql
-    enabled: yes
+    enabled: true
 
 - name: tell user to finish setting up postgres
-  debug:
-    msg: "Either uncomment the postgres setup or manually login and initialize"
+  ansible.builtin.debug:
+    msg: Either uncomment the postgres setup or manually login and initialize
 
 # only run the next 2 tasks once!
+
 - name: initilize postgres
-  command: postgresql-setup initdb
   run_once: true
-  ignore_errors: yes
+  ignore_errors: true
+  ansible.builtin.command: postgresql-setup initdb
 
 - name: initilize postgres some more
-  command: chkconfig postgresql on
   run_once: true
-  ignore_errors: yes
+  ignore_errors: true
+  ansible.builtin.command: chkconfig postgresql on
 
 - name: start postgres
-  service:
+  ansible.builtin.service:
     name: postgresql.service
     state: started
-
