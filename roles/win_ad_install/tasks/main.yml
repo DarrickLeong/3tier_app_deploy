@@ -1,22 +1,23 @@
+---
 - name: Install AD-Domain-Services feature
-  win_feature:
+  ansible.windows.win_feature:
     name: AD-Domain-Services
-    include_management_tools: yes
-    include_sub_features: yes
+    include_management_tools: true
+    include_sub_features: true
 
 - name: Setup Active Directory Controller
-  win_domain:
+  register: active_directory_controllers
+  ansible.windows.win_domain:
     dns_domain_name: "{{ ad_domain_name }}"
     safe_mode_password: "{{ ad_safe_mode_password }}"
-  register: active_directory_controllers
 
 - name: Reboot once DC created
-  win_reboot:
   when: active_directory_controllers.reboot_required
+  ansible.windows.win_reboot:
 
 - name: List Domain Controllers in domain
-  win_shell: "nltest /dclist:{{ ad_domain_name }}"
   register: domain_list
+  ansible.windows.win_shell: nltest /dclist:{{ ad_domain_name }}
 
-- debug:
-   var: domain_list
+- ansible.builtin.debug:
+    var: domain_list

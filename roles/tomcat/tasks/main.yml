@@ -1,27 +1,27 @@
 ---
 # tasks file for roles/tomcat
 - name: install tomcat
-  package:
+  ansible.builtin.package:
     name: tomcat
     state: latest
 
 - name: enable tomcat at boot
-  service:
+  ansible.builtin.service:
     name: tomcat
-    enabled: yes
+    enabled: true
 
 - name: create ansible tomcat directory
-  file:
+  ansible.builtin.file:
     path: /usr/share/tomcat/webapps/ROOT
     state: directory
 
 - name: copy static index.html to tomcat webapps/ROOT/index.html
-  template:
+  ansible.builtin.template:
     src: index.html.j2
     dest: /usr/share/tomcat/webapps/ROOT/index.html
-    mode: 0644
+    mode: 420
 
 - name: start tomcat
-  service:
+  ansible.builtin.service:
     name: tomcat
     state: started

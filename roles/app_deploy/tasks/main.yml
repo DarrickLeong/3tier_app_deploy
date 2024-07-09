@@ -1,7 +1,6 @@
 ---
 # tasks file for roles/app_deploy
 - name: copy static index.html to tomcat webapps/ansible/index.html
-  template:
-    src: "index.html.j2"
+  ansible.builtin.template:
+    src: index.html.j2
     dest: /usr/share/tomcat/webapps/ansible/index.html
-

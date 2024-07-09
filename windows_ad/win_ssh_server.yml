@@ -1,3 +1,4 @@
+---
 - hosts: windows
   vars_files:
     - ./ssh_var.yml

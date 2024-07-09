@@ -8,33 +8,32 @@
   become: true
 
   tasks:
-#  - name: Import In-memory inventory play
-#    import_playbook: in-memory-inventory.yml
+    #  - name: Import In-memory inventory play
+    #    import_playbook: in-memory-inventory.yml
 
-  - name: enable repos
-    template:
-      src: ./open_three-tier-app.repo
-      dest: /etc/yum.repos.d/open_three-tier-app.repo
-      mode: 0644
-  
-  - name: Deploy Haproxy
-    include_role:
-      name: haproxy
-    when: inventory_hostname in groups['frontends']
-  
-  - name: Deploy Tomcat
-    include_role:
-      name: tomcat
-    when: inventory_hostname in groups['apps']
-   
-  - name: Deploy postgresql
-    include_role:
-      name: postgresql
-    when: inventory_hostname in groups['appdbs']
-  
-#  - name: Deploy Apache 
-#    include_role:
-#      name: apache
-#    when: inventory_hostname in groups['apps']
+    - name: enable repos
+      ansible.builtin.template:
+        src: ./open_three-tier-app.repo
+        dest: /etc/yum.repos.d/open_three-tier-app.repo
+        mode: 420
 
+    - name: Deploy Haproxy
+      when: inventory_hostname in groups['frontends']
+      ansible.builtin.include_role:
+        name: haproxy
 
+    - name: Deploy Tomcat
+      when: inventory_hostname in groups['apps']
+      ansible.builtin.include_role:
+        name: tomcat
+
+    - name: Deploy postgresql
+      when: inventory_hostname in groups['appdbs']
+
+      #  - name: Deploy Apache 
+      #    include_role:
+      #      name: apache
+      #    when: inventory_hostname in groups['apps']
+
+      ansible.builtin.include_role:
+        name: postgresql
